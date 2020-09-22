@@ -7,6 +7,8 @@ import { DatePicker, mergeStyleSets } from 'office-ui-fabric-react';
 import { Dropdown, DropdownMenuItemType, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { PrimaryButton } from 'office-ui-fabric-react';
 import { ISimpleSPFxFormState } from '../model/ISimpleSPFxFormState';
+import { SampleCodes } from '../services/SampleCodes';
+import { ListNames } from '../constants/ListNames';
 
 const stackTokens = { childrenGap: 50 };
 const stackStyles: Partial<IStackStyles> = { root: { width: 650 } };
@@ -31,9 +33,10 @@ const options: IDropdownOption[] = [
 
 ];
 export default class SimpleSPFxForm extends React.Component<ISimpleSPFxFormProps, ISimpleSPFxFormState> {
-
+    private sampleCodes;
     constructor(props: ISimpleSPFxFormProps, state: ISimpleSPFxFormState) {
         super(props);
+        this.sampleCodes = new SampleCodes();
         this.state = ({
             ID: 0,
             name: '',
@@ -43,14 +46,16 @@ export default class SimpleSPFxForm extends React.Component<ISimpleSPFxFormProps
             gender: '',
             mobileNo: null,
         })
-        // this.getAll("SimpleSPFx");
-        // this.getItemById("SimpleSPFx", 5);
-        // this.delete("SimpleSPFx", 5);
+
+        this.sampleCodes.getAll(ListNames.SimpleSPFx);//testing getAll
+        this.sampleCodes.getItemById(ListNames.SimpleSPFx, 7);//testing getItemById
+
         //Initiating function bounds
         this.handleInputChange = this.handleInputChange.bind(this);
         this.onSelectDate = this.onSelectDate.bind(this);
         this.onSelectDropdown = this.onSelectDropdown.bind(this);
-        this.createItem = this.createItem.bind(this);
+        this.createRecord = this.createRecord.bind(this);
+
     }
     public render(): React.ReactElement<ISimpleSPFxFormProps> {
         return (
@@ -80,7 +85,7 @@ export default class SimpleSPFxForm extends React.Component<ISimpleSPFxFormProps
                     <TextField label="Mobile No." type='number' name="mobileNo" value={String(this.state.mobileNo)} onChange={this.handleInputChange} />
                     <br />
                     <div>
-                        <PrimaryButton text="Save" style={{ width: '10px', float: 'right' }} onClick={this.createItem} />
+                        <PrimaryButton text="Save" style={{ width: '10px', float: 'right' }} onClick={this.createRecord} />
                     </div>
                 </Stack>
             </Stack>
@@ -104,82 +109,17 @@ export default class SimpleSPFxForm extends React.Component<ISimpleSPFxFormProps
         this.setState({ gender: selectedGender })
     };
 
-    private async createItem(): Promise<string> {
-        return new Promise<string>(async (resolve, reject) => {
-
-            const data = {
-                Name: this.state.name,
-                Age: this.state.age,
-                Address: this.state.address,
-                DateofBirth: this.state.dateofBirth,
-                Gender: this.state.gender,
-                Mobile: this.state.mobileNo,
-            };
-
-            console.log(data);
-            sp.web.lists
-                .getByTitle("SimpleSPFx")//list name comes here
-                .items.add(data)
-                .then((results: any) => { resolve(results); console.log(results) }, (error: any) => {
-                    reject("error");
-                })
-
-        });
+    private createRecord = () => {
+        const data = {
+            Name: this.state.name,
+            Age: this.state.age,
+            Address: this.state.address,
+            DateofBirth: this.state.dateofBirth,
+            Gender: this.state.gender,
+            Mobile: this.state.mobileNo,
+        };
+        this.sampleCodes.createItem(ListNames.SimpleSPFx, data);
     }
     //#endregion Events
-
-    //Get All
-    public async getAll(listName: string): Promise<any> {
-
-        return new Promise<any>(async (resolve, reject) => {
-            sp.web.lists.getByTitle(listName).items.getAll()
-                .then((results: any) => {
-                    resolve(results); console.log(results);
-                }, (error: any) => {
-                    reject("error");
-                });
-        });
-    }
-
-    //Get Item by Id
-    public async getItemById(listName: string, itemId: any): Promise<any> {
-
-        return new Promise<any>(async (resolve, reject) => {
-            sp.web.lists.getByTitle(listName).items.getById(itemId).get()
-                .then((results: any) => {
-                    resolve(results); console.log(results);
-                }, (error: any) => {
-                    reject("error");
-                });
-        });
-    }
-
-    //Update Item
-    public async update(listName: string, itemId: any, data: any): Promise<any> {
-
-        return new Promise<any>(async (resolve, reject) => {
-            sp.web.lists.getByTitle(listName).items.getById(itemId).update(data)
-                .then((results: any) => {
-                    resolve(results); console.log(results);
-                }, (error: any) => {
-                    reject("error");
-                });
-        });
-    }
-
-    //Delete Item
-    public async delete(listName: string, itemId: any): Promise<any> {
-
-        return new Promise<any>(async (resolve, reject) => {
-            sp.web.lists.getByTitle(listName).items.getById(itemId).delete()
-                .then((results: any) => {
-                    resolve(results); console.log(results);
-                }, (error: any) => {
-                    reject("error");
-                });
-        });
-    }
-
-
 }
 
