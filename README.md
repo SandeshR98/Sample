@@ -16,7 +16,17 @@ In the project directory, you can run:
 
 ### `npm install`
 
-Runs the app in the development mode.<br />
-
+Install the relevant node modules (dependencies) for the project<br />
 
 ### `gulp serve`
+
+Runs the app in localhost. For development environment run the url below<br />
+
+#### Development Environment
+
+https://yourdomainName.sharepoint.com/sites/siteName/_layouts/15/workbench.aspx
+
+### Deployment
+
+gulp bundle --ship
+gulp package-solution --ship
