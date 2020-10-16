@@ -1,11 +1,22 @@
 # Sample
-Simple SFPx project created using Fluent UI and PnP  Js
 
-# To run the project
+Simple SFPx project created using Fluent UI and PnP Js
 
-Prerequisites
-- Node v8.12.0-x64
+## Technology Stack
 
-npm install
+- SharePoint Framework (SPFx)
 
-gulp serve
+## Prerequisites
+
+- Node v8.12.0-x64 (Node version used for this project can be found in the <b> Prerequisite Folder </b>)
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm install`
+
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### `gulp serve`
