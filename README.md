@@ -4,7 +4,11 @@ Simple SFPx project created using Fluent UI and PnP Js
 
 ## Technology Stack
 
-- SharePoint Framework (SPFx)
+- O365
+- SharePoint Online
+- SharePoint Framework (SPFx) with React
+- Office Ui Fabric
+- PnP Js
 
 ## Prerequisites
 
