@@ -32,5 +32,6 @@ https://yourdomainName.sharepoint.com/sites/siteName/_layouts/15/workbench.aspx
 
 ### Deployment
 
-gulp bundle --ship
-gulp package-solution --ship
+### `gulp bundle --ship`
+
+### `gulp package-solution --ship`
